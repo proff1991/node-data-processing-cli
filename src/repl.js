@@ -1,4 +1,4 @@
-import { createInterface } from "readline"
+import { createInterface } from "readline";
 
 var dispatchCommand = async () => {
     // placeholder
