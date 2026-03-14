@@ -1,9 +1,22 @@
 import { createInterface } from "readline";
+import { up, cd, ls } from "./navigation.js";
+import { tokenize } from "./service.js";
 
-var dispatchCommand = async () => {
-    // placeholder
+var dispatchCommand = async (command, args, state) => {
+
+    // I hate switch statement, it's the most inconvenient tool in C-like languages
+    // console.log({ command, args, state });
+
+    if (command === "up") {
+        return up(state);
+    } else if (command === "cd") {
+        return cd(state, args[0]);
+    } else if (command === "ls") {
+        return ls(state);
+    }
+
     return false;
-}
+};
 
 var printThanksBeforeEnd = () => {
     console.log("Thank you for using Data Processing CLI!");
@@ -34,7 +47,7 @@ export var startRepl = async (state, printCwd) => {
             return;
         }
 
-        var tokens = input.split(/\s+/);
+        var tokens = tokenize(input);
         var command = String(tokens[0]).toLowerCase();
 
         if (command === ".exit") {
