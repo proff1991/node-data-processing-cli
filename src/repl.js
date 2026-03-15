@@ -6,7 +6,7 @@ import { jsonToCsv } from "./commands/jsonToCsv.js";
 import { count } from "./commands/count.js";
 import { hash } from "./commands/hash.js";
 import { hashCompare } from "./commands/hashCompare.js";
-import { encrypt } from "./commands/encrypt.js"; 
+import { encrypt } from "./commands/encrypt.js";
 import { decrypt } from "./commands/decrypt.js";
 
 var dispatchCommand = async (command, args, state) => {
@@ -70,7 +70,7 @@ export var startRepl = async (state, printCwd) => {
         }
 
         var tokens = tokenize(input);
-        var command = String(tokens[0] ?? "" ).toLowerCase();
+        var command = String(tokens[0] ?? "").toLowerCase();
 
         if (command === ".exit") {
             gracefulExit(rl);
