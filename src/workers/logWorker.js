@@ -1,6 +1,6 @@
 import { parentPort, workerData } from "node:worker_threads";
-
-var lines = workerData.split("\n");
+import { createReadStream } from "node:fs";
+import { createInterface } from "node:readline";
 
 var total = 0;
 var levels = {};
@@ -8,14 +8,18 @@ var status = { "2xx": 0, "3xx": 0, "4xx": 0, "5xx": 0 };
 var paths = {};
 var responseSum = 0;
 
-lines.forEach((line) => {
+var rl = createInterface({
+    input: createReadStream(workerData.file, {
+        start: workerData.start,
+        end: workerData.end
+    }),
+    crlfDelay: Infinity
+});
 
-    line = line.trim();
-    if (!line) {
-        return;
-    }
+rl.on("line", (line) => {
 
     var parts = line.split(" ");
+    if (parts.length < 7) return;
 
     var level = parts[1];
     var statusCode = Number(parts[3]);
@@ -26,11 +30,8 @@ lines.forEach((line) => {
 
     levels[level] = (levels[level] ?? 0) + 1;
 
-    var statusClass = Math.floor(statusCode / 100) + "xx";
-
-    if (status[statusClass] !== undefined) {
-        ++status[statusClass];
-    }
+    var cls = Math.floor(statusCode / 100) + "xx";
+    if (status[cls] !== undefined) ++status[cls];
 
     paths[path] = (paths[path] ?? 0) + 1;
 
@@ -38,10 +39,14 @@ lines.forEach((line) => {
 
 });
 
-parentPort.postMessage({
-    total,
-    levels,
-    status,
-    paths,
-    responseSum
+rl.on("close", () => {
+
+    parentPort.postMessage({
+        total,
+        levels,
+        status,
+        paths,
+        responseSum
+    });
+
 });
