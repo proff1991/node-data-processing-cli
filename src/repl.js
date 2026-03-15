@@ -4,6 +4,7 @@ import { tokenize } from "./service.js";
 import { csvToJson } from "./commands/csvToJson.js";
 import { jsonToCsv } from "./commands/jsonToCsv.js";
 import { count } from "./commands/count.js";
+import { hash } from "./commands/hash.js";
 
 var dispatchCommand = async (command, args, state) => {
 
@@ -22,6 +23,8 @@ var dispatchCommand = async (command, args, state) => {
         return jsonToCsv(state, args);
     } else if (command === "count") {
         return count(state, args);
+    } else if (command === "hash") {
+        return hash(state, args);
     }
 
     return false;
