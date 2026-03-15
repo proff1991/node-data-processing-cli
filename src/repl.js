@@ -5,6 +5,7 @@ import { csvToJson } from "./commands/csvToJson.js";
 import { jsonToCsv } from "./commands/jsonToCsv.js";
 import { count } from "./commands/count.js";
 import { hash } from "./commands/hash.js";
+import { hashCompare } from "./commands/hashCompare.js";
 
 var dispatchCommand = async (command, args, state) => {
 
@@ -25,6 +26,8 @@ var dispatchCommand = async (command, args, state) => {
         return count(state, args);
     } else if (command === "hash") {
         return hash(state, args);
+    } else if (command === "hash-compare") {
+        return hashCompare(state, args);
     }
 
     return false;
