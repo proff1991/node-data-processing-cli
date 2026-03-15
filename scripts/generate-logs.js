@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 'use strict';
 
-const fs = require('node:fs');
-const path = require('node:path');
-const { parseArgs } = require('node:util');
+import { mkdirSync, createWriteStream } from 'node:fs';
+import { resolve, dirname } from 'node:path';
+import { parseArgs } from 'node:util';
 
 const { values } = parseArgs({
   options: {
@@ -49,10 +49,10 @@ const pick = (arr) => arr[Math.floor(rand() * arr.length)];
 const start = Date.parse('2026-01-01T00:00:00.000Z');
 let current = start;
 
-const outPath = path.resolve(process.cwd(), output);
-fs.mkdirSync(path.dirname(outPath), { recursive: true });
+const outPath = resolve(process.cwd(), output);
+mkdirSync(dirname(outPath), { recursive: true });
 
-const stream = fs.createWriteStream(outPath, { encoding: 'utf8' });
+const stream = createWriteStream(outPath, { encoding: 'utf8' });
 
 let written = 0;
 const writeBatch = () => {
