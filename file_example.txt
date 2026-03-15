@@ -1,0 +1,4 @@
+Must use Streams API to process the file (do not load the entire file into memory)
+A word is any sequence of non-whitespace characters
+Paths are relative to the current working directory or can be absolute
+If the input file doesn't exist, print Operation failed
