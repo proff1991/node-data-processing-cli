@@ -1,6 +1,6 @@
 import { stat, readdir } from "node:fs/promises";
-import { dirname, resolve, isAbsolute } from "node:path";
-import { compareNames } from "./service.js";
+import { dirname } from "node:path";
+import { resolvePath } from "./utils/pathResolver.js";
 
 export var up = async (state) => {
 
@@ -13,6 +13,9 @@ export var up = async (state) => {
     return true;
 };
 
+var compareNames = (a, b) => {
+    return String(a).localeCompare(String(b));
+};
 
 export var cd = async (state, target) => {
 
@@ -20,9 +23,7 @@ export var cd = async (state, target) => {
         throw new Error("Invalid input");
     }
 
-    var newPath = isAbsolute(target)
-        ? target
-        : resolve(state.cwd, target);
+    var newPath = resolvePath(target,state);
 
     try {
         var info = await stat(newPath);

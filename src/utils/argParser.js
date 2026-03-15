@@ -17,7 +17,3 @@ export var tokenize = (input) => {
     return tokens;
 
 };
-
-export var compareNames = (a, b) => {
-    return String(a).localeCompare(String(b));
-};

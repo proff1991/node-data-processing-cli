@@ -1,6 +1,6 @@
 import { createInterface } from "readline";
 import { up, cd, ls } from "./navigation.js";
-import { tokenize } from "./service.js";
+import { tokenize } from "./utils/argParser.js";
 import { csvToJson } from "./commands/csvToJson.js";
 import { jsonToCsv } from "./commands/jsonToCsv.js";
 import { count } from "./commands/count.js";
@@ -32,7 +32,7 @@ var dispatchCommand = async (command, args, state) => {
         return hashCompare(state, args);
     } else if (command === "encrypt") {
         return encrypt(state, args);
-    }else if (command === "decrypt") {
+    } else if (command === "decrypt") {
         return decrypt(state, args);
     }
 
@@ -70,7 +70,7 @@ export var startRepl = async (state, printCwd) => {
         }
 
         var tokens = tokenize(input);
-        var command = String(tokens[0]).toLowerCase();
+        var command = String(tokens[0] ?? "" ).toLowerCase();
 
         if (command === ".exit") {
             gracefulExit(rl);
