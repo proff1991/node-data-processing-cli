@@ -8,6 +8,7 @@ import { hash } from "./commands/hash.js";
 import { hashCompare } from "./commands/hashCompare.js";
 import { encrypt } from "./commands/encrypt.js";
 import { decrypt } from "./commands/decrypt.js";
+import { logStats } from "./commands/logStats.js";
 
 var dispatchCommand = async (command, args, state) => {
 
@@ -34,8 +35,9 @@ var dispatchCommand = async (command, args, state) => {
         return encrypt(state, args);
     } else if (command === "decrypt") {
         return decrypt(state, args);
+    } else if (command === "log-stats") {
+        return logStats(state, args);
     }
-
 
     return false;
 };
