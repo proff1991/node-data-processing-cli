@@ -13,7 +13,6 @@ import { logStats } from "./commands/logStats.js";
 var dispatchCommand = async (command, args, state) => {
 
     // I hate switch statement, it's the most inconvenient tool in C-like languages
-    // console.log({ command, args, state });
 
     if (command === "up") {
         return up(state);
