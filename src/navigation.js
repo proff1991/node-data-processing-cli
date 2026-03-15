@@ -17,7 +17,7 @@ export var up = async (state) => {
 export var cd = async (state, target) => {
 
     if (!target) {
-        throw new Error("INVALID_INPUT");
+        throw new Error("Invalid input");
     }
 
     var newPath = isAbsolute(target)
@@ -27,11 +27,11 @@ export var cd = async (state, target) => {
     try {
         var info = await stat(newPath);
     } catch {
-        throw new Error("OPERATION_FAILED");
+        throw new Error("Operation failed");
     }
 
     if (!info.isDirectory()) {
-        throw new Error("OPERATION_FAILED");
+        throw new Error("Operation failed");
     }
 
     state.cwd = newPath;
@@ -47,7 +47,7 @@ export var ls = async (state) => {
     try {
         entries = await readdir(state.cwd, { withFileTypes: true });
     } catch {
-        throw new Error("OPERATION_FAILED");
+        throw new Error("Operation failed");
     }
 
     var folders = [];

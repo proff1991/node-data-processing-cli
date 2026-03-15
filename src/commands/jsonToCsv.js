@@ -22,7 +22,7 @@ export var jsonToCsv = async (state, args) => {
     });
 
     if (!input || !output) {
-        throw new Error("INVALID_INPUT");
+        throw new Error("Invalid input");
     }
 
     var inputPath = isAbsolute(input) ? resolve(input) : resolve(state.cwd, input);
@@ -98,7 +98,7 @@ export var jsonToCsv = async (state, args) => {
         );
 
     } catch {
-        throw new Error("OPERATION_FAILED");
+        throw new Error("Operation failed");
     }
 
     return true;

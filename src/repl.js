@@ -3,6 +3,7 @@ import { up, cd, ls } from "./navigation.js";
 import { tokenize } from "./service.js";
 import { csvToJson } from "./commands/csvToJson.js";
 import { jsonToCsv } from "./commands/jsonToCsv.js";
+import { count } from "./commands/count.js";
 
 var dispatchCommand = async (command, args, state) => {
 
@@ -19,6 +20,8 @@ var dispatchCommand = async (command, args, state) => {
         return csvToJson(state, args);
     } else if (command === "json-to-csv") {
         return jsonToCsv(state, args);
+    } else if (command === "count") {
+        return count(state, args);
     }
 
     return false;
@@ -73,7 +76,7 @@ export var startRepl = async (state, printCwd) => {
 
         } catch (err) {
 
-            if (err && err.message === "INVALID_INPUT") {
+            if (err && (err.message === "INVALID_INPUT" || err.message === "Invalid input")) {
                 console.log("Invalid input");
             } else {
                 console.log("Operation failed");
