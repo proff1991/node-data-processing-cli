@@ -1,5 +1,5 @@
 import { stat, readdir } from "node:fs/promises";
-import { dirname, resolve, isAbsolute } from "path";
+import { dirname, resolve, isAbsolute } from "node:path";
 import { compareNames } from "./service.js";
 
 export var up = async (state) => {

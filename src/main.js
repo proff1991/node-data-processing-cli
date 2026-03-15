@@ -1,4 +1,4 @@
-import os from "os";
+import os from "node:os";
 import { startRepl } from "./repl.js";
 
 var state = {
