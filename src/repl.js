@@ -1,6 +1,7 @@
 import { createInterface } from "readline";
 import { up, cd, ls } from "./navigation.js";
 import { tokenize } from "./service.js";
+import { csvToJson } from "./commands/csvToJson.js";
 
 var dispatchCommand = async (command, args, state) => {
 
@@ -13,6 +14,9 @@ var dispatchCommand = async (command, args, state) => {
         return cd(state, args[0]);
     } else if (command === "ls") {
         return ls(state);
+    } else if (command === "csv-to-json") {
+        // console.log("yep")
+        return csvToJson(state, args);
     }
 
     return false;
